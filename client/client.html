@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="./client.css">
+</head>
+<body>
+    <div id="Container">
+        <div id="message-container">
+            <ul id="list-container">
+                
+            </ul>
+        </div>
+        <div id="msg-section">
+            <input id="msg-input" type="text" placeholder="Type you message here"/>
+            <button id="sendBtn" type="submit">Send</button>
+        </div>
+    </div>
+
+
+    <script>
+        //write your code here
+
+
+        const sendBtn = document.getElementById('sendBtn');
+        const msgInput = document.getElementById('msg-input');
+        const lsContainer = document.getElementById('list-container');
+
+        function scrollToBottom() {
+            const messageContainer = document.getElementById('message-container');
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        //socket.io code here
+    </script>
+
+</body>
