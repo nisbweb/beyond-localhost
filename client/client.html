@@ -19,10 +19,13 @@
         </div>
     </div>
 
-
+    <script src="/socket.io/socket.io.js"></script>
     <script>
-        //write your code here
+        const queryParams = new URLSearchParams(window.location.search);
+        const username = queryParams.get('username');
+        const roomID = queryParams.get('roomID');
 
+        const socket = io()
 
         const sendBtn = document.getElementById('sendBtn');
         const msgInput = document.getElementById('msg-input');
@@ -33,7 +36,27 @@
             messageContainer.scrollTop = messageContainer.scrollHeight;
         }
 
-        //socket.io code here
+
+        socket.emit('joinRoom',username,roomID);
+
+        socket.on('chatMessage',(sender,msg)=>{
+            const newMsg = document.createElement('li');
+            newMsg.textContent = `${sender}: ${msg}`;
+            newMsg.classList.add(sender===username?'sent':'received');
+            lsContainer.appendChild(newMsg);
+            scrollToBottom();
+        });
+
+        sendBtn.addEventListener('click',()=>{
+            const msg = msgInput.value;
+            const newMsg = document.createElement('li');
+            newMsg.textContent = `You: ${msg}`;
+            newMsg.classList.add('sent');
+            lsContainer.appendChild(newMsg);
+            socket.emit('chatMessage',username,roomID,msg);
+            msgInput.value=""; 
+            scrollToBottom();
+        })
     </script>
 
 </body>
